@@ -1,4 +1,4 @@
-package cn.iocoder.learning.bytebuddy;
+package cn.zhaosoft.learning.bytebuddy;
 
 public class Dog {
 

@@ -1,4 +1,4 @@
-package cn.iocoder.learning.bytebuddy;
+package cn.zhaosoft.learning.bytebuddy;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
@@ -11,7 +11,7 @@ public class Example002 {
         Class dynamicType = new ByteBuddy()
                 .subclass(Dog.class)
                 .method(ElementMatchers.named("hello"))
-                .intercept(MethodDelegation.to(MyServiceInterceptor.class))
+                .intercept(MethodDelegation.to(SimpleInterceptor.class))
                 .make()
                 .load(Example002.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
                 .getLoaded();

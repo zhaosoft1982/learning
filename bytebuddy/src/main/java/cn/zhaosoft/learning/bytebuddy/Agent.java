@@ -1,4 +1,4 @@
-package cn.iocoder.learning.bytebuddy;
+package cn.zhaosoft.learning.bytebuddy;
 
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
@@ -13,7 +13,7 @@ public class Agent {
 
     public static void premain(String agentArgs, Instrumentation instrumentation) {
 
-        System.out.println("一点不萌");
+        System.out.println("Agent方法开始执行");
 
         new AgentBuilder.Default()
                 .type(ElementMatchers.any())
@@ -22,7 +22,7 @@ public class Agent {
                         return builder
 //                                .method(ElementMatchers.any())
                                 .method(ElementMatchers.named("hello"))
-                                .intercept(MethodDelegation.to(MyServiceInterceptor.class))
+                                .intercept(MethodDelegation.to(SimpleInterceptor.class))
                                 ;
                     }
                 })
@@ -50,7 +50,14 @@ public class Agent {
                 })
                 .installOn(instrumentation);
 
-        System.out.println("有一点萌");
+        new AgentBuilder.Default()
+                .type(ElementMatchers.any())
+                .transform((builder, type, classLoader, module) ->
+                        builder.method(ElementMatchers.any())
+                                .intercept(MethodDelegation.to(TimingInterceptor.class))
+                ).installOn(instrumentation);
+
+        System.out.println("Agent方法执行结束");
     }
 
 }

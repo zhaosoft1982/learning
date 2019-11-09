@@ -1,4 +1,4 @@
-package cn.iocoder.learning;
+package cn.zhaosoft.learning;
 
 public class Cat {
 

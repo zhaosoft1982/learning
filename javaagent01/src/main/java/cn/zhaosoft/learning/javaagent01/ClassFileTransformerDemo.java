@@ -1,4 +1,4 @@
-package cn.iocoder.learning.javaagent01;
+package cn.zhaosoft.learning.javaagent01;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,11 +12,11 @@ public class ClassFileTransformerDemo implements ClassFileTransformer {
 
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
         System.out.println("className: " + className);
-        if (!className.equalsIgnoreCase("cn/iocoder/learning/Dog")) {
+        if (!className.equalsIgnoreCase("cn/zhaosoft/learning/Dog")) {
             return null;
         }
-//        return getBytesFromFile("cn/iocoder/learning/Cat");
-        return getBytesFromFile("/Users/yunai/Java/learning/example01/Dog.class");
+        //       return getBytesFromFile("cn/zhaosoft/learning/Cat");
+       return getBytesFromFile("/Users/zhaoxiaolei/source/learning/example01/target/classes/cn/zhaosoft/learning/Dog.class");
     }
 
     public static byte[] getBytesFromFile(String fileName) {

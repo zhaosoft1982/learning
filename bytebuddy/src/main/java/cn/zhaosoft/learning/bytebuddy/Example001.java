@@ -1,4 +1,4 @@
-package cn.iocoder.learning.bytebuddy;
+package cn.zhaosoft.learning.bytebuddy;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
