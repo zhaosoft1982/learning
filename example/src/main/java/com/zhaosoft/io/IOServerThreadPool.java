@@ -1,11 +1,23 @@
 package com.zhaosoft.io;
 
+import lombok.extern.slf4j.Slf4j;
+import sun.misc.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * @author xiaoleizhao
  * @create 2019-12-07 17:25
  **/
+@Slf4j
 public class IOServerThreadPool {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IOServerThreadPool.class);
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -14,7 +26,7 @@ public class IOServerThreadPool {
             serverSocket = new ServerSocket();
             serverSocket.bind(new InetSocketAddress(2345));
         } catch (IOException ex) {
-            LOGGER.error("Listen failed", ex);
+            log.error("Listen failed", ex);
             return;
         }
         try{
@@ -23,9 +35,9 @@ public class IOServerThreadPool {
                 executorService.submit(() -> {
                     try{
                         InputStream inputstream = socket.getInputStream();
-                        LOGGER.info("Received message {}", IOUtils.toString(new InputStreamReader(inputstream)));
+                        log.info("Received message {}", new InputStreamReader(inputstream));
                     } catch (IOException ex) {
-                        LOGGER.error("Read message failed", ex);
+                        log.info("Read message failed", ex);
                     }
                 });
             }
@@ -34,7 +46,7 @@ public class IOServerThreadPool {
                 serverSocket.close();
             } catch (IOException e) {
             }
-            LOGGER.error("Accept connection failed", ex);
+            log.info("Accept connection failed", ex);
         }
     }
 }

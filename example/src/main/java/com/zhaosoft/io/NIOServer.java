@@ -1,18 +1,23 @@
 package com.zhaosoft.io;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author xiaoleizhao
  * @create 2019-12-07 17:26
  **/
+@Slf4j
 public class NIOServer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NIOServer.class);
-
     public static void main(String[] args) throws IOException {
         Selector selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
@@ -30,7 +35,7 @@ public class NIOServer {
                     ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) key.channel();
                     SocketChannel socketChannel = acceptServerSocketChannel.accept();
                     socketChannel.configureBlocking(false);
-                    LOGGER.info("Accept request from {}", socketChannel.getRemoteAddress());
+                    log.info("Accept request from {}", socketChannel.getRemoteAddress());
                     socketChannel.register(selector, SelectionKey.OP_READ);
                 } else if (key.isReadable()) {
                     SocketChannel socketChannel = (SocketChannel) key.channel();
@@ -39,10 +44,10 @@ public class NIOServer {
                     if (count <= 0) {
                         socketChannel.close();
                         key.cancel();
-                        LOGGER.info("Received invalide data, close the connection");
+                        log.info("Received invalide data, close the connection");
                         continue;
                     }
-                    LOGGER.info("Received message {}", new String(buffer.array()));
+                    log.info("Received message {}", new String(buffer.array()));
                 }
                 keys.remove(key);
             }

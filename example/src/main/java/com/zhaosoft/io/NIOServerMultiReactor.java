@@ -1,11 +1,21 @@
 package com.zhaosoft.io;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.Set;
+
 /**
  * @author xiaoleizhao
  * @create 2019-12-07 17:46
  **/
+@Slf4j
 public class NIOServerMultiReactor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NIOServer.class);
 
     public static void main(String[] args) throws IOException {
         Selector selector = Selector.open();
@@ -15,9 +25,9 @@ public class NIOServerMultiReactor {
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
         int coreNum = Runtime.getRuntime().availableProcessors();
-        Processor[] processors = new Processor[2 * coreNum];
+        ProcessorReactor[] processors = new ProcessorReactor[2 * coreNum];
         for (int i = 0; i < processors.length; i++) {
-            processors[i] = new Processor();
+            processors[i] = new ProcessorReactor();
         }
 
         int index = 0;
@@ -29,8 +39,8 @@ public class NIOServerMultiReactor {
                     ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) key.channel();
                     SocketChannel socketChannel = acceptServerSocketChannel.accept();
                     socketChannel.configureBlocking(false);
-                    LOGGER.info("Accept request from {}", socketChannel.getRemoteAddress());
-                    Processor processor = processors[(int) ((index++) % coreNum)];
+                    log.info("Accept request from {}", socketChannel.getRemoteAddress());
+                    ProcessorReactor processor = processors[(int) ((index++) % coreNum)];
                     processor.addChannel(socketChannel);
                     processor.wakeup();
                 }
