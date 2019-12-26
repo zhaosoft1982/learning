@@ -54,12 +54,12 @@ public class CompareExchangeQuick {
         for (int i = index; i <= right; i++) {
             //如果目标值 比当前值大 需要交换i,index,将小值 与 大值交换位置
             if (tarVal > arr[i]) {
-                SortUtil.swap(arr,i,index);
+                //SortUtil.swap(arr,i,index);
                 index++;
             }
         }
         //index-1 为最终位置
-        SortUtil.swap(arr, left, index-1);
+        //SortUtil.swap(arr, left, index-1);
         return index-1;
     }
 }
