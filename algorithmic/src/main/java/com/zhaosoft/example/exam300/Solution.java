@@ -1,5 +1,8 @@
 package com.zhaosoft.example.exam300;
 
+/**
+ * 给定一个无序的整数数组，找到其中最长上升子序列的长度。
+ */
 public class Solution {
     public int lengthOfLIS(int[] nums) {
         if (nums.length == 0) {

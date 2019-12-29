@@ -28,6 +28,6 @@ public class Solution {
         int[] nums = new int[]{1,3, 5, 6};
         Solution solution8 = new Solution();
         int lengthOfLIS = solution8.searchInsert(nums, 5);
-        System.out.println("最长上升子序列的长度：" + lengthOfLIS);
+        System.out.println("顺序插入的位置：" + lengthOfLIS);
     }
 }
