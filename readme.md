@@ -163,7 +163,7 @@
 
 - [ZooKeeper 相关概念总结](docs/system-design/framework/ZooKeeper.md)
 - [ZooKeeper 数据模型和常见命令](docs/system-design/framework/ZooKeeper数据模型和常见命令.md)
--[阿里巴巴为什么不用 ZooKeeper 做服务发现？](https://yq.aliyun.com/articles/601745?spm=a2c4e.11153940.blogcont604028.19.6daf2a38OLvUBo)
+- [阿里巴巴为什么不用 ZooKeeper 做服务发现？](https://yq.aliyun.com/articles/601745?spm=a2c4e.11153940.blogcont604028.19.6daf2a38OLvUBo)
 
 ### 数据通信/中间件
 
