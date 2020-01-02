@@ -72,7 +72,7 @@
 
 * **[一 Java内存区域](docs/java/jvm/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.md)**
 * **[二 JVM垃圾回收](docs/java/jvm/JVM垃圾回收.md)**
-* [三 JDK 监控和故障处理工具](docs/java/jvm/JDK监控和故障处理工具总结.md)
+* [三 JDK 监控和故障处理工具](doc/java/jvm/JDK监控和故障处理工具总结.md)
 * [四 类文件结构](docs/java/jvm/类文件结构.md)
 * **[五 类加载过程](docs/java/jvm/类加载过程.md)**
 * [六 类加载器](docs/java/jvm/类加载器.md)
