@@ -106,6 +106,7 @@
 
 * [后端程序员必备的 Linux 基础知识](docs/operating-system/后端程序员必备的Linux基础知识.md)  
 * [Shell 编程入门](docs/operating-system/Shell.md) 
+* [Understanding the Meltdown exploit – in my own simple words](https://www.sqlpassion.at/archive/2018/01/06/understanding-the-meltdown-exploit-in-my-own-simple-words/)
 
 ## 数据结构与算法
 
