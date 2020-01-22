@@ -1,4 +1,4 @@
-package com.zhaosoft.exam122;
+package com.zhaosoft.test.exam122;
 
 import com.zhaosoft.example.exam122.Solution_2;
 import org.junit.Test;

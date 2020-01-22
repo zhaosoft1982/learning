@@ -1,4 +1,4 @@
-package com.zhaosoft.exam212;
+package com.zhaosoft.test.exam212;
 
 import com.zhaosoft.example.exam212.Solution212;
 import org.junit.Assert;
