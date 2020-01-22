@@ -6,10 +6,7 @@ import java.util.Set;
 public class Solution {
     public int robotSim(int[] commands, int[][] obstacles) {
         char flg = 't'; //'l','d','r'
-        int[][] root = new int[][]{{0, 0}};
-        int[][] pos = new int[][]{{0, 0}};
         int i = 0, j = 0;
-        int len = 0;
         int res = 0;
         //处理障碍物
         Set<Long> dot = new HashSet<>();
@@ -19,8 +16,7 @@ public class Solution {
             dot.add((ox << 16) + oy);
         }
 
-        while (len < commands.length) {
-            int currentCommand = commands[len];
+        for (int currentCommand:commands) {
             if (currentCommand == -2) { //向左转
                 if (flg == 't') {
                     flg = 'l';
@@ -56,7 +52,6 @@ public class Solution {
                     }
                 }
             }
-            len++;
             res = Math.max(res, i * i + j * j);
         }
         return res;
