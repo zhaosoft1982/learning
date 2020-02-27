@@ -2,6 +2,9 @@ package com.zhaosoft.example.exam146;
 
 import java.util.Hashtable;
 
+/**
+ * 哈希表+双向琏表实现LRU缓存
+ */
 public class LRUCache_2 {
 
     private Hashtable<Integer, DLinkedNode> cache = new Hashtable<Integer, DLinkedNode>();
@@ -25,6 +28,7 @@ public class LRUCache_2 {
 
         head.next.prev = node;
         head.next = node;
+
     }
 
     private void removeNode(DLinkedNode node) {
@@ -33,6 +37,8 @@ public class LRUCache_2 {
          */
         DLinkedNode prev = node.prev;
         DLinkedNode next = node.next;
+
+        StringBuffer s=new StringBuffer();
 
         prev.next = next;
         next.prev = prev;

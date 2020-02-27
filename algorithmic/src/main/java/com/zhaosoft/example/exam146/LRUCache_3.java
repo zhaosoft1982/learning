@@ -15,7 +15,7 @@ public class LRUCache_3 {
     }
 
     public int get(int key) {
-        if (!map.containsKey(key)){
+        if (!map.containsKey(key)) {
             return -1;
         }
         int val = map.get(key).val;

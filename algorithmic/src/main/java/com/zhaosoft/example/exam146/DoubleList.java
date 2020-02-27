@@ -2,7 +2,8 @@ package com.zhaosoft.example.exam146;
 
 public class DoubleList {
     //头尾虚节点
-    private Node head, tail;
+    private Node head;
+    private Node tail;
     private int size;
 
     public DoubleList() {
