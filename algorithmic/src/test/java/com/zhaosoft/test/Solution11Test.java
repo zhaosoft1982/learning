@@ -1,6 +1,6 @@
 package com.zhaosoft.test;
 
-import com.zhaosoft.example.exam11.Solution;
+import com.zhaosoft.example.exam1_50.exam11.Solution;
 import org.junit.Assert;
 import org.junit.Test;
 

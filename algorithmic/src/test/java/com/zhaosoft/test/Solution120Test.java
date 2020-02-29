@@ -1,8 +1,8 @@
 package com.zhaosoft.test;
 
-import com.zhaosoft.example.exam120.Solution120;
-import com.zhaosoft.example.exam120.Solution_DFS;
-import com.zhaosoft.example.exam120.Solution_DP;
+import com.zhaosoft.example.exam101_150.exam120.Solution120;
+import com.zhaosoft.example.exam101_150.exam120.Solution_DFS;
+import com.zhaosoft.example.exam101_150.exam120.Solution_DP;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -35,6 +35,12 @@ public class Solution120Test {
     public void test_dp() {
         Solution120 solution120 = new Solution120();
         int result = solution120.minimumTotal_1(triangle);
+        Assert.assertEquals(11, result);
+    }
+    @Test
+    public void test_dp_2() {
+        Solution120 solution120 = new Solution120();
+        int result = solution120.minimumTotal_2(triangle);
         Assert.assertEquals(11, result);
     }
 }
