@@ -1,6 +1,6 @@
 package com.zhaosoft.test.exam455;
 
-import com.zhaosoft.example.exam455.Solution;
+import com.zhaosoft.example.exam401_500.exam455.Solution;
 import org.junit.Assert;
 import org.junit.Test;
 
