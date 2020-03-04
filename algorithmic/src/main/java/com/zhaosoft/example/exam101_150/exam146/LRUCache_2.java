@@ -1,17 +1,22 @@
 package com.zhaosoft.example.exam101_150.exam146;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * 哈希表+双向琏表实现LRU缓存
  */
 public class LRUCache_2 {
 
-    private Hashtable<Integer, DLinkedNode> cache = new Hashtable<Integer, DLinkedNode>();
+    private Map<Integer, DLinkedNode> cache = new HashMap<>();
     private int size;
     private int capacity;
     private DLinkedNode head, tail;
 
+    /**
+     * 双向琏表
+     */
     class DLinkedNode {
         int key;
         int value;
@@ -37,8 +42,6 @@ public class LRUCache_2 {
          */
         DLinkedNode prev = node.prev;
         DLinkedNode next = node.next;
-
-        StringBuffer s=new StringBuffer();
 
         prev.next = next;
         next.prev = prev;
