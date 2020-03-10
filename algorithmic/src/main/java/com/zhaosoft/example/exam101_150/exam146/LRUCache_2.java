@@ -1,7 +1,6 @@
 package com.zhaosoft.example.exam101_150.exam146;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 /**

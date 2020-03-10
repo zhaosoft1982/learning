@@ -34,7 +34,7 @@ public class Solution {
         return node;
     }
 
-    public Node copyRandomList(Node head) {
+    public Node copyRandomList1(Node head) {
         Map<Node, Node> map = new HashMap<>();
         if (head == null) {
             return null;
@@ -51,7 +51,18 @@ public class Solution {
             map.get(node).random = map.get(node.random);
             node = node.next;
         }
-
         return map.get(head);
+    }
+
+    private HashMap<Node, Node> visited = new HashMap();
+
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+        if (visited.containsKey(head)) return visited.get(head);
+        Node newNode = new Node(head.val,null,null);
+        visited.put(head, newNode);
+        newNode.next = copyRandomList(head.next);
+        newNode.random = copyRandomList(head.random);
+        return newNode;
     }
 }

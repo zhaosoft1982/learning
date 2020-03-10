@@ -17,7 +17,7 @@ public class Solution_BFS {
                 Node currentNode = queue.poll();
                 currentLevel.add(currentNode.val);
                 // add child node to queue
-                if(currentNode.children!=null){
+                if (currentNode.children != null) {
                     queue.addAll(currentNode.children);
                 }
             }
