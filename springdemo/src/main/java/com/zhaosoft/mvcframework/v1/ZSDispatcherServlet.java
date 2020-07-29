@@ -1,5 +1,9 @@
 package com.zhaosoft.mvcframework.v1;
 
+import com.zhaosoft.mvcframework.annotation.ZSController;
+import com.zhaosoft.mvcframework.annotation.ZSRequestMapping;
+import com.zhaosoft.mvcframework.annotation.ZSService;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,7 +48,41 @@ public class ZSDispatcherServlet extends HttpServlet {
             configContext.load(is);
             String scanPackage = configContext.getProperty("scanPackage");
             doScanner(scanPackage);
+            for (String className : mapping.keySet()) {
+                if (!className.contains(".")) {
+                    continue;
+                }
+                Class<?> clazz = Class.forName(className);
+                if (clazz.isAnnotationPresent(ZSController.class)) {
+                    mapping.put(className, clazz.newInstance());
+                    String baseUrl = "";
+                    if (clazz.isAnnotationPresent(ZSRequestMapping.class)) {
+                        ZSRequestMapping requestMapping = clazz.getAnnotation(ZSRequestMapping.class);
+                        baseUrl = requestMapping.value();
+                    }
+                    Method[] methods = clazz.getMethods();
+                    for (Method method : methods) {
+                        if (!method.isAnnotationPresent(ZSRequestMapping.class)) {
+                            continue;
+                        }
+                        ZSRequestMapping requestMapping = clazz.getAnnotation(ZSRequestMapping.class);
+                        String url = (baseUrl + "/" + requestMapping.value()).replaceAll("/+", "/");
+                        mapping.put(url, method);
+                    }
+                } else if (clazz.isAnnotationPresent(ZSService.class)) {
+                    ZSService service = clazz.getAnnotation(ZSService.class);
+                    String beanName = service.value();
+                    if ("".equals(beanName)) {
+                        beanName = clazz.getName();
+                    }
+                    Object instance = clazz.newInstance();
+                    mapping.put(beanName, instance);
+                    for (Class<?> i : clazz.getInterfaces()) {
+                        mapping.put(i.getName(), instance);
+                    }
+                }else{continue;}
 
+            }
 
         } catch (Exception e) {
 
