@@ -2,7 +2,8 @@ package com.zhaosoft.example;
 
 public class TreeNode {
     public int val;
-    public TreeNode left, right;
+    public TreeNode left;
+    public TreeNode right;
 
     public TreeNode(int val) {
         this.val = val;

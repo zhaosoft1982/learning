@@ -1,6 +1,6 @@
 package com.zhaosoft.test.exam122;
 
-import com.zhaosoft.example.exam122.Solution_2;
+import com.zhaosoft.example.exam101_150.exam122.Solution_2;
 import org.junit.Test;
 
 public class SolutionTest_2 {
