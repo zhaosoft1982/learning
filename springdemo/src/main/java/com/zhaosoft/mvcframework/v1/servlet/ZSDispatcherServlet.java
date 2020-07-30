@@ -1,5 +1,6 @@
-package com.zhaosoft.mvcframework.v1;
+package com.zhaosoft.mvcframework.v1.servlet;
 
+import com.zhaosoft.mvcframework.annotation.ZSAutowired;
 import com.zhaosoft.mvcframework.annotation.ZSController;
 import com.zhaosoft.mvcframework.annotation.ZSRequestMapping;
 import com.zhaosoft.mvcframework.annotation.ZSService;
@@ -12,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class ZSDispatcherServlet extends HttpServlet {
@@ -35,8 +38,17 @@ public class ZSDispatcherServlet extends HttpServlet {
         }
     }
 
-    private void doDispatch(HttpServletRequest request, HttpServletResponse response) {
-
+    private void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String url = request.getRequestURI();
+        String contextPath = request.getContextPath();
+        url = url.replace(contextPath, "").replaceAll("/+", "/");
+        if (!this.mapping.containsKey(url)) {
+            response.getWriter().write("404 Not Found");
+            return;
+        }
+        Method method = (Method) this.mapping.get(url);
+        Map<String, String[]> params = request.getParameterMap();
+        method.invoke(this.mapping.get(method.getDeclaringClass().getName()), new Object[]{request, response, params.get("name")[0]});
     }
 
     @Override
@@ -80,13 +92,49 @@ public class ZSDispatcherServlet extends HttpServlet {
                     for (Class<?> i : clazz.getInterfaces()) {
                         mapping.put(i.getName(), instance);
                     }
-                }else{continue;}
+                } else {
+                    continue;
+                }
 
+            }
+            for (Object object : mapping.values()) {
+                if (object == null) {
+                    continue;
+                }
+                Class clazz = object.getClass();
+                if (clazz.isAnnotationPresent(ZSController.class)) {
+                    Field[] fields = clazz.getDeclaredFields();
+                    for (Field field : fields) {
+                        if (!field.isAnnotationPresent(ZSAutowired.class)) {
+                            continue;
+                        }
+                        ZSAutowired autowired = field.getAnnotation(ZSAutowired.class);
+                        String beanName = autowired.value();
+                        if ("".equals(beanName)) {
+                            beanName = field.getType().getName();
+                        }
+                        field.setAccessible(true);
+                        try {
+                            field.set(mapping.get(clazz.getName()), mapping.get(beanName));
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
 
         } catch (Exception e) {
 
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        System.out.println("ZS MVC Framework is init");
     }
 
     private void doScanner(String scanPackage) {
