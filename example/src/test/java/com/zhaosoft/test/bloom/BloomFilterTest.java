@@ -1,4 +1,4 @@
-package com.zhaosoft.bloom;
+package com.zhaosoft.test.bloom;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
