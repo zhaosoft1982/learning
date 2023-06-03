@@ -1,6 +1,18 @@
 package com.zhaosoft.example.exam152;
 
+/**
+ * 152. 乘积最大子数组
+ * 给你一个整数数组 nums ，请你找出数组中乘积最大的非空连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+ * 测试用例的答案是一个 32-位 整数。
+ * 子数组 是数组的连续子序列。
+ */
 public class Solution {
+    /**
+     * 动态规划
+     *
+     * @param nums
+     * @return
+     */
     public int maxProduct(int[] nums) {
         int n = nums.length;
         if (n == 0) {
@@ -14,8 +26,8 @@ public class Solution {
         int res = nums[0];
 
         for (int i = 1; i < nums.length; i++) {
-            max[i] = Math.max(min[i - 1] * nums[i],Math.max(max[i - 1] * nums[i],nums[i]));
-            min[i] = Math.min(min[i - 1] * nums[i],Math.min(max[i - 1] * nums[i],nums[i]));
+            max[i] = Math.max(min[i - 1] * nums[i], Math.max(max[i - 1] * nums[i], nums[i]));
+            min[i] = Math.min(min[i - 1] * nums[i], Math.min(max[i - 1] * nums[i], nums[i]));
             res = Math.max(res, max[i]);
         }
 
@@ -32,35 +44,9 @@ public class Solution {
         return res;
     }
 
-    public int maxProduct2(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int[] max = new int[nums.length];
-        int[] min = new int[nums.length];
-        max[0] = nums[0];
-        min[0] = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] > 0) {
-                max[i] = Math.max(nums[i], nums[i] * max[i - 1]);
-                min[i] = Math.min(nums[i], nums[i] * min[i - 1]);
-            } else {
-                max[i] = Math.max(nums[i], nums[i] * min[i - 1]);
-                min[i] = Math.min(nums[i], nums[i] * max[i - 1]);
-            }
-        }
-        int imax = Integer.MIN_VALUE;
-        for (int i = 0; i < nums.length; i++) {
-            if (max[i] > imax) {
-                imax = max[i];
-            }
-        }
-        return imax;
-    }
-
     public static void main(String[] args) {
         Solution s = new Solution();
-        int[] nums = new int[]{3, 5, 6, -2, 4, -3,-2};
-        System.out.println(s.maxProduct2(nums));
+        int[] nums = new int[]{3, 5, 6, -2, 4, -3, -2};
+        System.out.println(s.maxProduct(nums));
     }
 }
