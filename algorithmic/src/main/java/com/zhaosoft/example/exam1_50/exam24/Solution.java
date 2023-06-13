@@ -10,10 +10,8 @@ import com.zhaosoft.example.ListNode;
  *
  * @param
  * @author xiaoleizhao
- * @date 2018/11/3 19:43
- * @return
  */
-public class Sloution {
+public class Solution {
     public ListNode swapPairs(ListNode head) {
         ListNode pre = new ListNode(0);
         pre.next = head;
@@ -29,4 +27,14 @@ public class Sloution {
         return pre.next;
     }
 
+    public static void main(String[] args) {
+        ListNode one = new ListNode(1);
+        ListNode two = new ListNode(2);
+        ListNode three = new ListNode(3);
+        ListNode four = new ListNode(4);
+        three.next = four;
+        two.next = three;
+        one.next = two;
+        new Solution().swapPairs(one);
+    }
 }
