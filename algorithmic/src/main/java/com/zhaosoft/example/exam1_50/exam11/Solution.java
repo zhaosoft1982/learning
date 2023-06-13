@@ -1,13 +1,21 @@
 package com.zhaosoft.example.exam1_50.exam11;
 
+/**
+ * 11. 盛最多水的容器
+ * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+ * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+ * 返回容器可以储存的最大水量。
+ * 说明：你不能倾斜容器。
+ */
 public class Solution {
     /**
      * [1,8,6,2,5,4,8,3,7]
+     * 暴力破解，两层循环
      *
      * @param height
      * @return
      */
-    public int maxArea0(int[] height) {
+    public int maxArea(int[] height) {
         int maxResult = 0;
         for (int i = 1; i < height.length; i++) {
             int j = 0;
@@ -18,40 +26,5 @@ public class Solution {
             }
         }
         return maxResult;
-    }
-
-    public int maxArea1(int[] height) {
-        int maxResult = 0;
-        int left = 0;
-        int right = height.length - 1;
-        while (left < right) {
-            maxResult = Math.max(maxResult, Math.min(height[left], height[right]) * (right - left));
-            if (height[left] < height[right]) {
-                left++;
-            } else {
-                right--;
-            }
-        }
-        return maxResult;
-    }
-
-    public int maxArea(int[] height) {
-        int x = 0, sum = 0, y = height.length - 1;
-        while (x < y) {
-            if (height[x] > height[y]) {
-                sum = Math.max(sum, height[y] * (y - x));
-                while (height[y - 1] < height[y]) {
-                    y--;
-                }
-                y--;
-            } else {
-                sum = Math.max(sum, height[x] * (y - x));
-                while (height[x + 1] < height[x]) {
-                    x++;
-                }
-                x++;
-            }
-        }
-        return sum;
     }
 }
