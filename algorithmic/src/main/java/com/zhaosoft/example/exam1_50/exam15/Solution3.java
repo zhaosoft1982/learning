@@ -7,14 +7,16 @@ import java.util.List;
 public class Solution3 {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
+        //先排序
         Arrays.sort(nums);
+
         for (int i = 0, len = nums.length; i < len - 2; i++) {
             int j = i + 1;
             int k = len - 1;
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            if (nums[i] > 0 || (nums[i] + nums[j] + nums[j+1])>0){
+            if (nums[i] > 0 || (nums[i] + nums[j] + nums[j + 1]) > 0) {
                 break;
             }
             if (nums[i] + nums[k] + nums[k - 1] < 0) {
@@ -32,10 +34,10 @@ public class Solution3 {
                     oneResult.add(nums[j++]);
                     oneResult.add(nums[k--]);
                     result.add(oneResult);
-                    while (j < k && nums[j] == nums[j - 1]){
+                    while (j < k && nums[j] == nums[j - 1]) {
                         j++;
                     }
-                    while (j < k && nums[k] == nums[k + 1]){
+                    while (j < k && nums[k] == nums[k + 1]) {
                         k--;
                     }
                 }
